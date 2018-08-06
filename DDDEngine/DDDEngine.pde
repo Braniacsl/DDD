@@ -4,7 +4,7 @@
 HashMap<String, Object> objects = new HashMap<String, Object>();
 
 void setup(){
-
+  
 }
 
 void draw(){
