@@ -6,7 +6,7 @@ class Sprite {
   public Sprite(PImage image){
     this.img = image;
   }
-  public void Render(float x, float y){
+  public void render(float x, float y){
     image(this.img, x, y);
   }
 }
