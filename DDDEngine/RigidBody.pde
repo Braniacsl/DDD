@@ -15,7 +15,12 @@ class RigidBody {
       this.position = position;
       this.velocity = velocity;
       this.mass = mass;
-      this.dimensions = new PVector(colliderA.x-colliderB.x, colliderA.y - colliderB.y);
+      this.dimensions = VectorMath.subtract(colliderA, colliderB);
   
+  }
+  
+  void RenderHitbox(color c){
+    fill(c);
+    rect(colliderA.x, colliderA.y, dimensions.x, dimensions.y);
   }
 }

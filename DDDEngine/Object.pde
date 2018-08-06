@@ -4,6 +4,7 @@
 //
 
 class Object{
+
   RigidBody rb;
   Sprite sp;
   PVector[] Vectors;
@@ -15,5 +16,6 @@ class Object{
     else {
       this.Vectors = GenericFunctions.split(location, ',');
     }
+
   }
 }
