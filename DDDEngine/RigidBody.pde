@@ -5,6 +5,7 @@ class RigidBody {
   PVector colliderB;
   PVector position;
   PVector velocity;
+  PVector dimensions;
   RigidBody(boolean isKinematic, boolean useGravity, PVector colliderA, PVector colliderB, PVector position, PVector velocity){
       this.isKinematic = isKinematic;
       this.useGravity = useGravity;
@@ -12,5 +13,6 @@ class RigidBody {
       this.colliderB = colliderB;
       this.position = position;
       this.velocity = velocity;
+      this.dimensions = new PVector(colliderA.x-colliderB.x, colliderA.y - colliderB.y);
   }
 }
