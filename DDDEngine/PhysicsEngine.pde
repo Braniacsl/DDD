@@ -9,7 +9,9 @@ static class PhysicsEngine {
       }
       //Gravity: https://gamedev.stackexchange.com/questions/15708/how-can-i-implement-gravity/16466#16466
       PVector forces = new PVector();
-      forces.y += gravity;
+      
+      if(obj.rb.useGravity)
+        forces.y += gravity;
       
       //basically velocity +=, but with VectorMath
       obj.rb.velocity = VectorMath.add(
