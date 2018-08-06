@@ -5,9 +5,8 @@ class Sprite {
   PImage img = new PImage();
   public Sprite(PImage image){
     this.img = image;
-    this.img.resize(100, 100);
   }
-  public void render(float x, float y){
-    image(this.img, x, y);
+  public void render(float x, float y, float w, float h){
+    image(this.img, x, y, w, h);
   }
 }
