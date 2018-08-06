@@ -1,7 +1,8 @@
 // MAIN FILE
 // ANY GAME CODE SHOULD GO HERE
 
-HashMap<String, RigidBody> objects = new HashMap<String, RigidBody>();
+HashMap<String, Object> objects = new HashMap<String, Object>();
+
 void setup(){
   
 }

@@ -4,7 +4,7 @@
 //  MIT License
 
 static class Renderer{
-  public static void render(HashMap<String, RigidBody> objects){
+  public static void render(HashMap<String, Object> objects){
     
   }
 }
