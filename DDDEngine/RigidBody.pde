@@ -18,4 +18,9 @@ class RigidBody {
       this.dimensions = VectorMath.subtract(colliderA, colliderB);
   
   }
+  
+  void RenderHitbox(color c){
+    fill(c);
+    rect(colliderA.x, colliderA.y, dimensions.x, dimensions.y);
+  }
 }

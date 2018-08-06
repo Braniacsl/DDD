@@ -25,3 +25,22 @@ static class VectorMath{
     return new PVector(first.x / second, first.y / second, first.z / second);
   }
 }
+
+static class BoolVector{
+  boolean x;
+  boolean y;
+  boolean z;
+  BoolVector(){
+    this.x = false;
+    this.y = false;
+    this.z = false;
+  }
+  BoolVector(boolean x, boolean y, boolean z){
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+  boolean IsZero(){
+    return !(x || y || z);
+  }
+}
