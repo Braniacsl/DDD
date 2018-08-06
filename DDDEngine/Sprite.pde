@@ -2,11 +2,11 @@
 //  8/6/2018
 
 class Sprite {
-  PImage img = new PImage();
+  PImage image;
   public Sprite(PImage image){
-    this.img = image;
+    this.image = image;
   }
   public void render(float x, float y, float w, float h){
-    image(this.img, x, y, w, h);
+    image(this.image, x, y, w, h);
   }
 }

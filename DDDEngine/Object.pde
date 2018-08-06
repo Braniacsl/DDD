@@ -4,10 +4,16 @@
 //
 
 class Object{
-  RigidBody rb = null;
-  Sprite sp = new Sprite(null);
+  RigidBody rb;
+  Sprite sp;
+  float[] Vectors;
   public Object(String location, boolean isKinematic, boolean useGravity, PVector colliderA, PVector colliderB, PVector position, PVector velocity){
     this.rb = new RigidBody(isKinematic, useGravity, colliderA, colliderB, position, velocity);
-    this.sp = new Sprite(loadImage(location));
+    if(location != null){
+      this.sp = new Sprite(loadImage(location));
+    }
+    else {
+      Vectors = split(location, ",");
+    }
   }
 }
