@@ -3,6 +3,7 @@
 
 HashMap<String, RigidBody> objects = new HashMap<String, RigidBody>();
 void setup(){
+  
 }
 
 void draw(){
