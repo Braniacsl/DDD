@@ -21,6 +21,6 @@ class RigidBody {
   
   void RenderHitbox(color c){
     fill(c);
-    rect(colliderA.x, colliderA.y, dimensions.x, dimensions.y);
+    rect(colliderA.x + position.x, colliderA.y + position.y, dimensions.x, dimensions.y);
   }
 }

@@ -8,7 +8,7 @@ void setup(){
   background(0);
 
   objects.put("Player", new Object("./Images/fiend.png", false, true, new PVector(), new PVector(100, 100, 100), new PVector(200f, 200f), new PVector(0, 0), 5));
-  objects.put("Floorkoblin", new Object("./Images/fiend.png", true, false, new PVector(100, 100, 100), new PVector(), new PVector(200f, 500f), new PVector(0, 0), 5));
+  objects.put("Floorkoblin", new Object("./Images/fiend.png", true, false, new PVector(), new PVector(100, 100, 100), new PVector(200f, 500f), new PVector(0, 0), 5));
 
 
 }
