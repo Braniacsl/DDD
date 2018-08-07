@@ -15,7 +15,7 @@ class Renderer{
        object.sp.render(object.rb.position.x, object.rb.position.y, object.rb.dimensions.x, object.rb.dimensions.y);
      }
      else{
-       vectorRender(object.Vectors);
+       vectorRender(object);
      }
     }
   }
@@ -25,16 +25,18 @@ class Renderer{
     return result;
   }
   
-  public void vectorRender(PVector[] vectors){
-    PVector[] new_vectors = this.calcVectors(vectors);
+  public void vectorRender(Object object){
+    PVector[] new_vectors = this.calcVectors(object.Vectors);
     for(int i = 0; i < new_vectors.length/6; i++){
       PVector[] cur_vectors = new PVector[4];
       for(int j = 0; j < 4; j++){
         cur_vectors[j] = new_vectors[i + j];
       }
       beginShape();
+      fill(random(0, 255), random(0, 255), random(0, 255));
       for(int j = 0; j < cur_vectors.length; j++){
-        vertex(cur_vectors[j].x, cur_vectors[j].y);
+        println(object.rb.position.y+cur_vectors[j].y);
+        vertex(object.rb.position.x + cur_vectors[j].x, object.rb.position.y + cur_vectors[j].y);
       }
       endShape();
     }
