@@ -1,5 +1,5 @@
 static class PhysicsEngine {
-  static final float gravity = 9.81 % 2;
+  static final float gravity = 1;
   
   static BoolVector CheckCollision(PVector aMin, PVector aMax, PVector bMin, PVector bMax){
     //https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_collision_detection
@@ -34,17 +34,10 @@ static class PhysicsEngine {
       BoolVector res = CheckCollision(
         VectorMath.add(obj.rb.colliderA, obj.rb.position),
         VectorMath.add(obj.rb.colliderB, obj.rb.position),
-        VectorMath.add(other.rb.colliderB, other.rb.position),
+        VectorMath.add(other.rb.colliderA, other.rb.position),
         VectorMath.add(other.rb.colliderB, other.rb.position) 
       );
-      if(res.x)
-        obj.rb.velocity.x = 0;
-      
-      if(res.y)
-        obj.rb.velocity.y = 0;
-        
-      if(res.z)
-        obj.rb.velocity.z = 0;
+      if(res.IsOne()) obj.rb.velocity = new PVector();
     }
     
     obj.rb.position = VectorMath.add(
