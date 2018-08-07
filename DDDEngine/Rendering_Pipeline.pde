@@ -26,28 +26,64 @@ class Renderer{
   }
   
   public void vectorRender(Object object){
-    PVector[] new_vectors = this.calcVectors(object.Vectors);
+    PVector[] new_vectors = this.calcVectors(object);
+    new_vectors = this.calcFinalVectors(new_vectors);
     for(int i = 0; i < new_vectors.length/6; i++){
       PVector[] cur_vectors = new PVector[4];
       for(int j = 0; j < 4; j++){
         cur_vectors[j] = new_vectors[i + j];
       }
       beginShape();
-      fill(random(0, 255), random(0, 255), random(0, 255));
       for(int j = 0; j < cur_vectors.length; j++){
-        println(object.rb.position.y+cur_vectors[j].y);
-        vertex(object.rb.position.x + cur_vectors[j].x, object.rb.position.y + cur_vectors[j].y);
+        float x = cur_vectors[j].x;
+        float y = cur_vectors[j].y;
+        vertex(x, y);
       }
       endShape();
     }
   }
   
-  public PVector[] calcVectors(PVector[] vectors){
+  public PVector[] calcVectors(Object object){
+    PVector[] result = new PVector[24];
+    //front
+    result[0] = new PVector(object.rb.position.x, object.rb.position.y, object.rb.position.z);
+    result[1] = new PVector(object.rb.position.x+object.rb.dimensions.x, object.rb.position.y, object.rb.position.z);
+    result[2] = new PVector(object.rb.position.x+object.rb.dimensions.x, object.rb.position.y + object.rb.dimensions.y, object.rb.position.z);
+    result[3] = new PVector(object.rb.position.x, object.rb.position.y+object.rb.dimensions.y, object.rb.position.z);
+    //back
+    result[4] = new PVector(object.rb.position.x, object.rb.position.y, object.rb.position.z + object.rb.dimensions.z);
+    result[5] = new PVector(object.rb.position.x+object.rb.dimensions.x, object.rb.position.y, object.rb.position.z + object.rb.dimensions.z);
+    result[6] = new PVector(object.rb.position.x+object.rb.dimensions.x, object.rb.position.y + object.rb.dimensions.y, object.rb.position.z + object.rb.dimensions.z);
+    result[7] = new PVector(object.rb.position.x, object.rb.position.y+object.rb.dimensions.y, object.rb.position.z + object.rb.dimensions.z);
+    //left
+    result[8] = new PVector(object.rb.position.x, object.rb.position.y, object.rb.position.z);
+    result[9] = new PVector(object.rb.position.x, object.rb.position.y, object.rb.position.z+object.rb.dimensions.z);
+    result[10] = new PVector(object.rb.position.x, object.rb.position.y + object.rb.dimensions.y, object.rb.position.z + object.rb.dimensions.z);
+    result[11] = new PVector(object.rb.position.x, object.rb.position.y + object.rb.dimensions.y, object.rb.position.z);
+    //right
+    result[12] = new PVector(object.rb.position.x+object.rb.dimensions.x, object.rb.position.y, object.rb.position.z);
+    result[13] = new PVector(object.rb.position.x+object.rb.dimensions.x, object.rb.position.y, object.rb.position.z+object.rb.dimensions.z);
+    result[14] = new PVector(object.rb.position.x+object.rb.dimensions.x, object.rb.position.y + object.rb.dimensions.y, object.rb.position.z + object.rb.dimensions.z);
+    result[15] = new PVector(object.rb.position.x+object.rb.dimensions.x, object.rb.position.y + object.rb.dimensions.y, object.rb.position.z);
+    //top
+    result[16] = new PVector(object.rb.position.x, object.rb.position.y, object.rb.position.z);
+    result[17] = new PVector(object.rb.position.x, object.rb.position.y, object.rb.position.z+object.rb.dimensions.z);
+    result[18] = new PVector(object.rb.position.x+object.rb.dimensions.x, object.rb.position.y, object.rb.position.z + object.rb.dimensions.z);
+    result[19] = new PVector(object.rb.position.x+object.rb.dimensions.x, object.rb.position.y, object.rb.position.z);
+    //bottom
+    result[20] = new PVector(object.rb.position.x, object.rb.position.y + object.rb.dimensions.y, object.rb.position.z);
+    result[21] = new PVector(object.rb.position.x, object.rb.position.y + object.rb.dimensions.y, object.rb.position.z+object.rb.dimensions.z);
+    result[22] = new PVector(object.rb.position.x+object.rb.dimensions.x, object.rb.position.y + object.rb.dimensions.y, object.rb.position.z + object.rb.dimensions.z);
+    result[23] = new PVector(object.rb.position.x+object.rb.dimensions.x, object.rb.position.y + object.rb.dimensions.y, object.rb.position.z + object.rb.dimensions.z);
+    return result;
+  }
+  
+  public PVector[] calcFinalVectors(PVector[] vectors){
     PVector[] result = new PVector[vectors.length];
     for(int i = 0; i < vectors.length; i++){
       float f = vectors[i].z - this.camera.rb.position.z;
-      float new_x = ((vectors[i].x-this.camera.rb.position.x) * (f/this.camera.rb.position.z)) + this.camera.rb.position.x;
-      float new_y = ((vectors[i].y-this.camera.rb.position.y) * (f/this.camera.rb.position.z)) + this.camera.rb.position.y;
+      float new_x = ((vectors[i].x-this.camera.rb.position.x) * (f/vectors[i].z)) + this.camera.rb.position.x;
+      float new_y = ((vectors[i].y-this.camera.rb.position.y) * (f/vectors[i].z)) + this.camera.rb.position.y;
       result[i] = new PVector(new_x, new_y);
     }
     return result;
