@@ -3,12 +3,15 @@
 //  8/6/2018
 //  MIT License
 
-static class Renderer{
-  public static void render(HashMap<String, Object> objects){
+class Renderer{
+  Object camera;
+  public void render(HashMap<String, Object> objects){
+    camera = objects.get("Player");
     for(HashMap.Entry<String, Object> entry : objects.entrySet()){
      String ky = entry.getKey();
      Object object =  entry.getValue();
      if(object.sp != null){
+       object.rb.dimensions = this.calcDimensions(object.rb.position);
        object.sp.render(object.rb.position.x, object.rb.position.y, object.rb.dimensions.x, object.rb.dimensions.y);
      }
      else{
@@ -16,18 +19,35 @@ static class Renderer{
      }
     }
   }
-  public static void vectorRender(PVector[] vectors){
-    PVector[] vects = new PVector[vectors.length];
-    for(int i = 0; i < vectors.length; i++){
-      System.out.println(vectors[i].x + " " + vectors[i].y + " " + vectors[i].z);
-      vects[i] = new PVector(vectors[i].x/vectors[i].z, vectors[i].y/vectors[i].z);
+  
+  public PVector calcDimensions(PVector vector){
+    PVector result = new PVector(vector.z * 100, vector.z / 100);
+    return result;
+  }
+  
+  public void vectorRender(PVector[] vectors){
+    PVector[] new_vectors = this.calcVectors(vectors);
+    for(int i = 0; i < new_vectors.length/6; i++){
+      PVector[] cur_vectors = new PVector[4];
+      for(int j = 0; j < 4; j++){
+        cur_vectors[j] = new_vectors[i + j];
+      }
+      beginShape();
+      for(int j = 0; j < cur_vectors.length; j++){
+        vertex(cur_vectors[j].x, cur_vectors[j].y);
+      }
+      endShape();
     }
-    System.out.println(vects);
-    //PShape[] shapes = new PShape[6];
-    //for(int i = 0; i < vects.length/6; i++){
-      //float x = 
-      //PShape shape = createShape(RECT);
-      //shapes[i] = ;
-    //}
+  }
+  
+  public PVector[] calcVectors(PVector[] vectors){
+    PVector[] result = new PVector[vectors.length];
+    for(int i = 0; i < vectors.length; i++){
+      float f = vectors[i].z - this.camera.rb.position.z;
+      float new_x = ((vectors[i].x-this.camera.rb.position.x) * (f/this.camera.rb.position.z)) + this.camera.rb.position.x;
+      float new_y = ((vectors[i].y-this.camera.rb.position.y) * (f/this.camera.rb.position.z)) + this.camera.rb.position.y;
+      result[i] = new PVector(new_x, new_y);
+    }
+    return result;
   }
 }
