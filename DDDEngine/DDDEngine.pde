@@ -51,8 +51,8 @@ void setup(){
   vectors[23] = new PVector(20, 30, 25f);
   objects.put("Enemy", new Object(null, false, true, new PVector(50, 50), new PVector(100, 100, 100), new PVector(200f, 200f), new PVector(0, 0), 5, vectors));
 
-  objects.put("Player", new Object("./Images/fiend.png", false, true, new PVector(), new PVector(100, 100, 100), new PVector(200f, 200f), new PVector(0, 0), 5));
-  objects.put("Floorkoblin", new Object("./Images/fiend.png", true, false, new PVector(), new PVector(100, 100, 100), new PVector(200f, 500f), new PVector(0, 0), 5));
+  objects.put("Player", new Object("./Images/fiend.png", false, true, new PVector(), new PVector(100, 100, 100), new PVector(200f, 200f, 1f), new PVector(0, 0), 5, null));
+  //objects.put("Floorkoblin", new Object("./Images/fiend.png", true, false, new PVector(), new PVector(100, 100, 100), new PVector(200f, 500f), new PVector(0, 0), 5, null));
 
 >>>>>>> origin/master
 }
