@@ -48,6 +48,7 @@ class Renderer{
       float f = vectors[i].z - this.camera.rb.position.z;
       float new_x = ((vectors[i].x-this.camera.rb.position.x) * (f/this.camera.rb.position.z)) + this.camera.rb.position.x;
       float new_y = ((vectors[i].y-this.camera.rb.position.y) * (f/this.camera.rb.position.z)) + this.camera.rb.position.y;
+      println(new_y);
       result[i] = new PVector(new_x, new_y);
     }
     return result;

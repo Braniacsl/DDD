@@ -7,7 +7,8 @@ class RigidBody {
   PVector velocity;
   PVector dimensions;
   float mass;
-  RigidBody(boolean isKinematic, boolean useGravity, PVector colliderA, PVector colliderB, PVector position, PVector velocity, float mass){
+  float bounciness;
+  RigidBody(boolean isKinematic, boolean useGravity, PVector colliderA, PVector colliderB, PVector position, PVector velocity, float mass, float bounciness){
       this.isKinematic = isKinematic;
       this.useGravity = useGravity;
       this.colliderA = colliderA;
@@ -16,11 +17,11 @@ class RigidBody {
       this.velocity = velocity;
       this.mass = mass;
       this.dimensions = VectorMath.subtract(colliderA, colliderB);
-  
+      this.bounciness = bounciness;
   }
   
   void RenderHitbox(color c){
     fill(c);
-    rect(colliderA.x + position.x, colliderA.y + position.y, dimensions.x, dimensions.y);
+    rect(colliderA.x + position.x - dimensions.x, colliderA.y + position.y - dimensions.y, dimensions.x, dimensions.y);
   }
 }
