@@ -22,6 +22,8 @@ class RigidBody {
   
   void RenderHitbox(color c){
     fill(c);
-    rect(colliderA.x + position.x - dimensions.x, colliderA.y + position.y - dimensions.y, dimensions.x, dimensions.y);
+    println(position.z);
+    PVector dims = new PVector(dimensions.x / constrain(position.z / 30f, 1f/30f, 30f), dimensions.y / constrain(position.z / 30f, 1f/30f, 30f));
+    rect(colliderA.x + position.x - dims.x, colliderA.y + position.y - dims.y, dims.x, dims.y);
   }
 }
