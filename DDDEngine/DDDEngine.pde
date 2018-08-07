@@ -8,6 +8,7 @@ void setup(){
   fullScreen();
   background(0);
 
+
   objects.put("Player", new Object("./Images/fiend.png", false, true, new PVector(50, 50), new PVector(100, 100, 100), new PVector(20f, 20f, 1f), new PVector(0, 0), 5, null));
   PVector[] vectors = new PVector[24];
   vectors[0] = new PVector(20, 20, 20f);
@@ -40,6 +41,10 @@ void setup(){
   vectors[22] = new PVector(30, 30, 25f);
   vectors[23] = new PVector(20, 30, 25f);
   objects.put("Enemy", new Object(null, false, true, new PVector(50, 50), new PVector(100, 100, 100), new PVector(200f, 200f), new PVector(0, 0), 5, vectors));
+
+  objects.put("Player", new Object("./Images/fiend.png", false, true, new PVector(), new PVector(100, 100, 100), new PVector(200f, 200f), new PVector(0, 0), 5));
+  objects.put("Floorkoblin", new Object("./Images/fiend.png", true, false, new PVector(), new PVector(100, 100, 100), new PVector(200f, 500f), new PVector(0, 0), 5));
+
 }
 
 void draw(){
