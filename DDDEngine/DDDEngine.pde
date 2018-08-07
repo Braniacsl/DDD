@@ -9,14 +9,7 @@ void setup(){
   size(1000, 1000);
   background(0);
 
-<<<<<<< HEAD
-  objects.put("Lol", new Object("./Images/fiend.png", false, true, new PVector(), new PVector(100, 100, 100), new PVector(600f, 50f, 50), new PVector(0, 0), 10));
 
-  objects.put("Player", new Object("./Images/fiend.png", false, true, new PVector(), new PVector(100, 100, 100), new PVector(200f, 200f, 0), new PVector(0, 0), 5));
-  objects.put("Floorkoblin", new Object("./Images/fiend.png", true, false, new PVector(), new PVector(300, 100, 100), new PVector(400f, 700f, 0), new PVector(0, 0), 5));
-  
-
-=======
 
   objects.put("Player", new Object("./Images/fiend.png", false, true, new PVector(50, 50), new PVector(100, 100, 100), new PVector(20f, 20f, 1f), new PVector(0, 0), 5, null));
   PVector[] vectors = new PVector[24];
@@ -51,23 +44,23 @@ void setup(){
   vectors[23] = new PVector(20, 30, 25f);
   objects.put("Enemy", new Object(null, false, true, new PVector(50, 50), new PVector(100, 100, 100), new PVector(200f, 200f), new PVector(0, 0), 5, vectors));
 
-  objects.put("Player", new Object("./Images/fiend.png", false, true, new PVector(), new PVector(100, 100, 100), new PVector(200f, 200f), new PVector(0, 0), 5));
-  objects.put("Floorkoblin", new Object("./Images/fiend.png", true, false, new PVector(), new PVector(100, 100, 100), new PVector(200f, 500f), new PVector(0, 0), 5));
+  objects.put("Lol", new Object("./Images/fiend.png", false, true, new PVector(), new PVector(100, 100, 100), new PVector(600f, 50f, 50), new PVector(0, 0), 10, vectors));
 
->>>>>>> origin/master
+  objects.put("Player", new Object("./Images/fiend.png", false, true, new PVector(), new PVector(100, 100, 100), new PVector(200f, 200f, 0), new PVector(0, 0), 5, vectors));
+  objects.put("Floorkoblin", new Object("./Images/fiend.png", true, false, new PVector(), new PVector(300, 100, 100), new PVector(400f, 700f, 0), new PVector(0, 0), 5, vectors));
+
 }
 
 void draw(){
   clear();
   background(0);
-<<<<<<< HEAD
+
   objects = PhysicsEngine.SimulatePhysics(objects);
-  Renderer.render(objects);
+  //renderer.render(objects);
   for(String k : objects.keySet())
     objects.get(k).rb.RenderHitbox(k == "Player" ? color(255, 0, 0) : color(0, 255, 0));
   println(mouseX, mouseY);
-=======
+
   //objects = PhysicsEngine.SimulatePhysics(objects);
-  renderer.render(objects);
->>>>>>> origin/master
+
 }
