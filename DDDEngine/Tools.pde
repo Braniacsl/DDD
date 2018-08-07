@@ -43,6 +43,12 @@ static class BoolVector{
   boolean IsZero(){
     return !(x || y || z);
   }
+  boolean IsOne(){
+    return (x && y && z);
+  }
+  public String toString(){
+    return "(" + Boolean.toString(x) + ", " + Boolean.toString(y) + ", " + Boolean.toString(z) + ")";
+  }
 }
 
 static class GenericFunctions{
