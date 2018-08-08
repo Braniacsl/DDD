@@ -6,6 +6,8 @@ HashMap<String, Object> scene1 = new HashMap<String, Object>();
 
 HashMap<String, Object> scene2 = new HashMap<String, Object>();
 
+HashMap<String, Object> scene4 = new HashMap<String, Object>();
+
 Scene[] scenes;
 SceneManager sm;
 
@@ -17,28 +19,34 @@ void setup(){
   size(1200, 700);
   background(255);
   
-  scene1.put("Enemy", new Object("", false, false , true, new PVector(0, 0, 0), new PVector(200, 200, 200), new PVector(width/2, 200f, 50f), new PVector(0, 0), 5, 0.8));
+  scene1.put("Enemy", new Object("", false, true , true, new PVector(0, 0, 0), new PVector(200, 200, 200), new PVector(width/2, 200f, 50f), new PVector(0, 0), 5, 0.8));
   
-  scene1.put("Player", new Object("./Images/fiend.png", true, false, true, new PVector(0, 0, 0), new PVector(200, 200, 10), new PVector(width/2, 200f, 1f), new PVector(0, 0), 5, 0.8));
+  scene1.put("Player", new Object("./Images/fiend.png", true, true, true, new PVector(0, 0, 0), new PVector(200, 200, 10), new PVector(width/2, 200f, 1f), new PVector(0, 0), 5, 0.8));
   scene1.put("Enemy2", new Object("", false, true , true, new PVector(0, 0, 0), new PVector(200, 200, 200), new PVector(width/2, 200f, 1000f), new PVector(0, 0), 5, 0.8));
   scene1.put("Floor", new Object("", false, true , true, new PVector(0, 0, 0), new PVector(width, 200, width), new PVector(0, height-10, 0), new PVector(0, 0), 5, 0.8));
   
   scene0.put("Enemy", new Object("", false, false, true, new PVector(), new PVector(20, 20, 20), new PVector(70f, 0f, 10f), new PVector(0, 0), 5, .8));
-  scene0.put("Player", new Object("./Images/fiend.png", false, false, false, new PVector(), new PVector(20, 20, 20), new PVector(60f, 50f, 10f), new PVector(0, 0), 5, .8));
-  scene0.put("Pirate", new Object("", true, true, false, new PVector(), new PVector(990, 100, 30), new PVector(20f, 700f, 10f), new PVector(0, 0), 5, .8));
+  scene0.put("Player", new Object("./Images/fiend.png", false, false, false, new PVector(), new PVector(20, 20, 20), new PVector(60f, 50f, 10f), new PVector(0, 0), 5, 1));
+  scene0.put("Pirate", new Object("", true, true, false, new PVector(), new PVector(990, 100, 30), new PVector(20f, 600f, 10f), new PVector(0, 0), 5, 1));
 
-  scene2.put("wallA", new Object("", true, true, false, new PVector(), new PVector(20, 20, 20), new PVector(20, 300, 10), new PVector(0, 0), 5, 1));
-  scene2.put("wallB", new Object("", true, true, false, new PVector(), new PVector(20, 20, 20), new PVector(1000, 300, 10), new PVector(0, 0), 5, 1));
-  scene2.put("ball1", new Object("", true, false, false, new PVector(), new PVector(20, 20, 20), new PVector(300, 300, 10), new PVector(10, 0), 5, 1));
-  scene2.put("ball2", new Object("", true, false, false, new PVector(), new PVector(20, 20, 20), new PVector(400, 300, 10), new PVector(0, 0), 5, 1));
-  scene2.put("ball3", new Object("", true, false, false, new PVector(), new PVector(20, 20, 20), new PVector(500, 300, 10), new PVector(0, 0), 5, 1));
-  scene2.put("ball4", new Object("", true, false, false, new PVector(), new PVector(20, 20, 20), new PVector(600, 300, 10), new PVector(0, 0), 5, 1));
-  scene2.put("ball5", new Object("", true, false, false, new PVector(), new PVector(20, 20, 20), new PVector(700, 300, 10), new PVector(0, 0), 5, 1));
+  scene2.put("wall", new Object("", true, true, false, new PVector(), new PVector(20, 100, 20), new PVector(700, 300, 10), new PVector(0, 0), 5, 1));
+  scene2.put("ball", new Object("", true, false, true, new PVector(), new PVector(20, 20, 20), new PVector(mouseX, mouseY, 10), new PVector(random(5, 20), 0), 5, 1));
+  scene2.put("Pirate", new Object("", true, true, false, new PVector(), new PVector(990, 100, 30), new PVector(20f, 600f, 10f), new PVector(0, 0), 5, 1));
+  scene2.put("target", new Object("", true, true, false, new PVector(), new PVector(20, 20, 20), new PVector(800, 350, 10), new PVector(0, 0), 5, 1));
+  
+  for(int i = 0; i < 20; i++){
+    scene4.put("Enemy" + String.valueOf(i), new Object("", false, false, false, new PVector(), new PVector(20, 20, 20), new PVector(random(0, 1200), random(0, 700), 10f), new PVector(0, 0), 5, .8));
+
+  }
+    scene4.put("Player", new Object("./Images/fiend.png", false, false, false, new PVector(), new PVector(20, 20, 20), new PVector(60f, 50f, 10f), new PVector(0, 0), 5, 1));
+  
   
   scenes = new Scene[]{
     new Scene(scene0),
     new Scene(scene1),
-    new Scene(scene2)
+    new Scene(scene2),
+    new Scene(scene2),
+    new Scene(scene4)
   };
   sm = new SceneManager(scenes);
   
@@ -53,10 +61,10 @@ void keyPressed(){
 
   
   if(sm.loadedScene == 0 && key == 'q'){
-    objects.put(String.valueOf(random(0, 10000)), new Object("", false, false, true, new PVector(), new PVector(20, 20, 20), new PVector(mouseX, mouseY, 10), new PVector(0, 0), 5, .8));
+    objects.put(String.valueOf(random(0, 10000)), new Object("", false, false, true, new PVector(), new PVector(20, 20, 20), new PVector(mouseX, mouseY, 10), new PVector(0, 0), 5, 1));
   }
   if(sm.loadedScene == 0 && key == 'w'){
-    objects.put(String.valueOf(random(0, 10000)), new Object("", false, false, false, new PVector(), new PVector(20, 20, 20), new PVector(mouseX, mouseY, 10f), new PVector(0, 0), 5, .8));
+    objects.put(String.valueOf(random(0, 10000)), new Object("", false, false, false, new PVector(), new PVector(20, 20, 20), new PVector(mouseX, mouseY, 10f), new PVector(0, 0), 5, 1));
   }
   if(sm.loadedScene == 1){
   if(key == 'w'){
@@ -73,14 +81,21 @@ void keyPressed(){
 
   }
   }
+
+}
+
+void mousePressed(){
+  if(sm.loadedScene == 2){
+    objects.put(String.valueOf(random(0, 100000)), new Object("", true, false, true, new PVector(), new PVector(20, 20, 20), new PVector(0, mouseY, 10), new PVector(mouseX / 50, 5), 5, 1));
+  }
 }
 
 void draw(){
   clear();
-  background(255);  
+  background(sm.loadedScene == 4 ? 0 : 255);  
   noFill();
   objects = pe.SimulatePhysics(objects);
-
+  
   if(sm.loadedScene == 1){
     Object player = objects.get("Player");
     if(player != null){
@@ -89,16 +104,46 @@ void draw(){
     renderer.render(objects);
   }
   
-
+  final String instructions = "Press keys 0 - 4 to select game\n0: Trampoline\n1: 3D Demonstration\n2: Ball Cannon\n3: 3D Platformer\n4: Space Rocket";
+  final String[] gameInstructions = {
+    "Press Q for a new gravity ball, W for an antigravity ball",
+    "Use WASD to move camera",
+    "Click to shoot balls. Use mouse position to aim!",
+    "3D Platformer",
+    "Control the rocket with WASD."
+  };
   
+  textSize(12);
+  fill(0, 100, 255);
+  text(instructions, 10, 60);
+  textSize(20);
+  fill(0, 0, 255);
+  if(sm.loadedScene >= 0)
+    text(gameInstructions[sm.loadedScene], 10, 40);
+    
   if(sm.loadedScene == 0){
     RigidBody playerRB = objects.get("Player").rb;
     playerRB.velocity.x += (playerRB.position.x < mouseX ? .05 : -.05);
     playerRB.velocity.y += (playerRB.position.y < mouseY ? .05 : -.05);
   }
-  if(sm.loadedScene == 0 || sm.loadedScene == 2){
+  
+  if(keyPressed && sm.loadedScene == 4){
+    RigidBody playerRB = objects.get("Player").rb;
+    
+    if(key == 'w')
+          playerRB.velocity.y -= .08;
+    if(key == 's')
+      playerRB.velocity.y += .08;
+      
+    if(key == 'a')
+      playerRB.velocity.x -= .08;
+    if(key == 'd')
+      playerRB.velocity.x += .08;
+  }
+  
+  if(sm.loadedScene == 0 || sm.loadedScene == 2 || sm.loadedScene == 4){
       for(String k : objects.keySet()){
-      objects.get(k).rb.RenderHitbox(k == "Player" ? color(255, 0, 0) : color(0, 255, 0)); 
+      objects.get(k).rb.RenderHitbox(k == "Player" ? color(255, 0, 0) : (k.contains("target") ? color(0, 0, 255) : color(0, 255, 0))); 
     }
   }
 }
