@@ -3,10 +3,13 @@
 //  8/6/2018
 //  MIT License
 
+float RenderDistance = 500;
+
 class Renderer{
   Object camera;
   public void render(HashMap<String, Object> objects){
     camera = objects.get("Player");
+    println("In rendering pipeline: " + camera.rb.dimensions.x);
     for(HashMap.Entry<String, Object> entry : objects.entrySet()){
      String ky = entry.getKey();
      Object object =  entry.getValue();
@@ -15,9 +18,79 @@ class Renderer{
        object.sp.render(object.rb.position.x, object.rb.position.y, object.rb.dimensions.x, object.rb.dimensions.y);
      }
      else{
-       vectorRender(object);
+       boolean isToBeCalced = this.checkCalculable(object);
+       println(isToBeCalced);
+       if(isToBeCalced)
+         vectorRender(object);
      }
     }
+  }   
+  
+  public boolean checkCalculable(Object object){
+    float rotationX = camera.rotation.x * ((float)Math.PI/180);
+    float rotationY = camera.rotation.y * ((float)Math.PI/180);
+    PVector[] vectors = this.calcVectors(object);
+    PVector[] camera_vecs = createFrustum();
+    println(camera.rb.dimensions.x);
+    println(camera_vecs[1]);
+    boolean result = false;
+    for(int i = 0; i < vectors.length; i++){
+      PVector vector = vectors[i];
+      for(int j = 0; j < camera_vecs.length; j++){
+        camera_vecs[j] = RotationMatrixY(camera_vecs[j], rotationX);
+        camera_vecs[j].dot(RotationMatrixX(camera_vecs[j], rotationY));
+      }
+      
+      float z = vector.z;
+      PVector[] layer = this.trig_calc(z, camera_vecs);
+      if(vector.x > layer[0].x && vector.x < layer[1].x && vector.y > layer[1].y && vector.y < layer[3].y){
+        result = true;
+      }
+    }
+    return result;
+  }
+  
+  public PVector[] trig_calc(float z, PVector[] camera_vecs){
+    PVector[] result =  new PVector[4];
+    float[] toEdgeX = {camera_vecs[4].x - camera_vecs[0].x, camera_vecs[5].x - camera_vecs[1].x};
+    float[] toEdgeY = {camera_vecs[4].y-camera_vecs[0].y, camera_vecs[6].y-camera_vecs[2].y};
+    float percentage = camera_vecs[0].z/camera_vecs[4].z;
+    float line = percentage * toEdgeX[0];
+    result[0] = new PVector(camera_vecs[0].x - line, camera_vecs[0].y - line);
+    result[1] = new PVector(camera_vecs[1].x + line, camera_vecs[1].y + line);
+    result[2] = new PVector(camera_vecs[2].x + line, camera_vecs[2].y + line);
+    result[3] = new PVector(camera_vecs[3].x - line, camera_vecs[3].y + line);
+    return result;
+  }
+  
+  public PVector RotationMatrixY(PVector point, float rotation){
+    PVector result = new PVector();
+    result.x = (float) Math.cos(rotation) * point.x + 0 * point.y + (float) Math.sin(rotation) * point.z;
+    result.y = point.y;
+    result.z = (float) -Math.sin(rotation) * point.x + 0 * point.y + (float) Math.cos(rotation) * point.z;
+    return result;
+  }
+  
+   public PVector RotationMatrixX(PVector point, float rotation) {
+    PVector result = new PVector();
+    result.x = point.x;
+    result.y = (float) Math.cos(rotation) * point.y + (float) -Math.sin(rotation) * point.z;
+    result.z = (float) Math.sin(rotation) * point.y + (float) Math.cos(rotation) * point.z;
+    return result;
+  }
+  
+  public PVector[] createFrustum(){
+    PVector[] vecs = new PVector[8];
+    vecs[0] = new PVector(camera.rb.position.x, camera.rb.position.y, camera.rb.position.z);
+    vecs[1] = new PVector(camera.rb.position.x+camera.rb.dimensions.x, camera.rb.position.y, camera.rb.position.z);
+    vecs[2] = new PVector(camera.rb.position.x+camera.rb.dimensions.x, camera.rb.position.y+camera.rb.dimensions.y, camera.rb.position.z);
+    vecs[3] = new PVector(camera.rb.position.x, camera.rb.position.y+camera.rb.dimensions.y, camera.rb.position.z);
+    
+    vecs[4] = new PVector(camera.rb.position.x, camera.rb.position.y, camera.rb.position.z+RenderDistance);
+    vecs[5] = new PVector(camera.rb.position.x+camera.rb.dimensions.x, camera.rb.position.y, camera.rb.position.z+RenderDistance);
+    vecs[6] = new PVector(camera.rb.position.x+camera.rb.dimensions.x, camera.rb.position.y+camera.rb.dimensions.y, camera.rb.position.z+RenderDistance);
+    vecs[7] = new PVector(camera.rb.position.x, camera.rb.position.y+camera.rb.dimensions.y, camera.rb.position.z+RenderDistance);
+    return vecs;
   }
   
   public PVector calcDimensions(PVector vector){
@@ -33,13 +106,15 @@ class Renderer{
       for(int j = 0; j < 4; j++){
         cur_vectors[j] = new_vectors[i + j];
       }
+      noFill();
       beginShape();
       for(int j = 0; j < cur_vectors.length; j++){
         float x = cur_vectors[j].x;
         float y = cur_vectors[j].y;
         vertex(x, y);
       }
-      endShape();
+     endShape(CLOSE);
+     
     }
   }
   
