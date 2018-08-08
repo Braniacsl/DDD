@@ -1,6 +1,6 @@
 
 class PhysicsEngine {
-  static final int collisionCycles = 4;
+  static final int collisionCycles = 2;
   static final float gravity = 1;
   int cycle = 0;
   BoolVector CheckCollision(PVector aMin, PVector aMax, PVector bMin, PVector bMax) {
