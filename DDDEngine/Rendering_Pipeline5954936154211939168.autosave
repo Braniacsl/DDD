@@ -3,7 +3,7 @@
 //  8/6/2018
 //  MIT License
 
-float RenderDistance = width*2;
+float RenderDistance = width;
 
 class Renderer{
   Object camera;
@@ -16,7 +16,7 @@ class Renderer{
        //object.rb.dimensions = this.calcDimensions(object.rb.position);
        object.sp.render(object.rb.position.x, object.rb.position.y, object.rb.dimensions.x, object.rb.dimensions.y);
      }
-     else if(ky != "Player"){
+     else{
        boolean isToBeCalced = this.checkCalculable(object);
        if(isToBeCalced)
          vectorRender(object);
@@ -97,12 +97,14 @@ class Renderer{
   public void vectorRender(Object object){
     PVector[] new_vectors = this.calcVectors(object);
     new_vectors = this.calcFinalVectors(new_vectors);
-    for(int i = 0; i < new_vectors.length/4; i++){
+    for(int i = 0; i < new_vectors.length/6; i++){
       PVector[] cur_vectors = new PVector[4];
       for(int j = 0; j < 4; j++){
         cur_vectors[j] = new_vectors[i + j];
       }
+      noFill();
       beginShape();
+       
       for(int j = 0; j < cur_vectors.length; j++){
         float x = cur_vectors[j].x;
         float y = cur_vectors[j].y;
