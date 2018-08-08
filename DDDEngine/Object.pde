@@ -6,28 +6,32 @@
 class Object{
 
   RigidBody rb;
-  Sprite sp;
+  Sprite sp=null;
   PVector[] Vectors;
+  boolean takesRotation;
+  PVector rotation;
   String ogLocation;
-  public Object(String location, boolean isKinematic, boolean useGravity, PVector colliderA, PVector colliderB, PVector position, PVector velocity, float mass, float bounciness, PVector[] vectors){
-    this.rb = new RigidBody(isKinematic, useGravity, colliderA, colliderB, position, velocity, mass, bounciness);
+  public Object(String location, boolean takesRotation, boolean isKinematic, boolean useGravity, PVector colliderA, PVector colliderB, PVector position, PVector velocity, float mass, float bounce){
+    this.rb = new RigidBody(isKinematic, useGravity, colliderA, colliderB, position, velocity, mass, bounce);
     ogLocation = location;
-    if(vectors == null){
+    if(location.contains(".png")){
       this.sp = new Sprite(loadImage(location));
     }
-    else {
-      this.Vectors = vectors;
+    this.takesRotation = takesRotation;
+    if(takesRotation){
+      rotation = new PVector(0, 0);
     }
-
+    
   }
-  public Object(String location, RigidBody rb, PVector[] vectors){
+  public Object(String location, boolean takesRotation, RigidBody rb, PVector[] vectors){
     this.rb = rb;
     ogLocation = location;
-    if(vectors == null){
+    if(location.contains(".png")){
       this.sp = new Sprite(loadImage(location));
     }
-    else {
-      this.Vectors = vectors;
+    this.takesRotation = takesRotation;
+    if(takesRotation){
+      rotation = new PVector(0, 0);
     }
   }
   
@@ -36,7 +40,7 @@ class Object{
     if(Vectors != null){
       copiedVectors = new PVector[Vectors.length]; //<>//
       arraycopy(Vectors, 0, copiedVectors, 0, Vectors.length);
-    }
-    return new Object(ogLocation, rb.DeepCopy(), copiedVectors);
+    } //<>//
+    return new Object(ogLocation, takesRotation, rb.DeepCopy(), copiedVectors);
   }
 }

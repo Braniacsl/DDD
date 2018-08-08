@@ -16,7 +16,7 @@ class RigidBody {
       this.position = position;
       this.velocity = velocity;
       this.mass = mass;
-      this.dimensions = VectorMath.subtract(colliderA, colliderB);
+      this.dimensions = this.colliderB;
       this.bounciness = bounciness;
   }
   
