@@ -1,3 +1,4 @@
+
 static class VectorMath{
   static PVector add(PVector first, PVector second){
     return new PVector(first.x + second.x, first.y + second.y, first.z + second.z);
@@ -27,6 +28,7 @@ static class VectorMath{
 }
 
 static class BoolVector{
+  //3 booleans, like this: (true, false, true)
   boolean x;
   boolean y;
   boolean z;
