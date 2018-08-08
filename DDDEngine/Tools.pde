@@ -27,6 +27,7 @@ static class VectorMath{
 }
 
 static class BoolVector{
+  //3 booleans, like this: (true, false, true)
   boolean x;
   boolean y;
   boolean z;
