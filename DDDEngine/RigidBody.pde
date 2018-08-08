@@ -15,7 +15,6 @@ class RigidBody {
       this.position = position;
       this.velocity = velocity;
       this.mass = mass;
-      println("In RigidBody: " + this.colliderB.x);
       this.dimensions = this.colliderB;
   }
   

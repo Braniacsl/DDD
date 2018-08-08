@@ -3,23 +3,21 @@
 //  8/6/2018
 //  MIT License
 
-float RenderDistance = 500;
+float RenderDistance = width;
 
 class Renderer{
   Object camera;
   public void render(HashMap<String, Object> objects){
     camera = objects.get("Player");
-    println("In rendering pipeline: " + camera.rb.dimensions.x);
     for(HashMap.Entry<String, Object> entry : objects.entrySet()){
      String ky = entry.getKey();
      Object object =  entry.getValue();
-     if(object.sp != null){
-       object.rb.dimensions = this.calcDimensions(object.rb.position);
+     if(object.sp != null && ky != "Player"){
+       //object.rb.dimensions = this.calcDimensions(object.rb.position);
        object.sp.render(object.rb.position.x, object.rb.position.y, object.rb.dimensions.x, object.rb.dimensions.y);
      }
      else{
        boolean isToBeCalced = this.checkCalculable(object);
-       println(isToBeCalced);
        if(isToBeCalced)
          vectorRender(object);
      }
@@ -31,8 +29,6 @@ class Renderer{
     float rotationY = camera.rotation.y * ((float)Math.PI/180);
     PVector[] vectors = this.calcVectors(object);
     PVector[] camera_vecs = createFrustum();
-    println(camera.rb.dimensions.x);
-    println(camera_vecs[1]);
     boolean result = false;
     for(int i = 0; i < vectors.length; i++){
       PVector vector = vectors[i];
@@ -52,7 +48,7 @@ class Renderer{
   
   public PVector[] trig_calc(float z, PVector[] camera_vecs){
     PVector[] result =  new PVector[4];
-    float[] toEdgeX = {camera_vecs[4].x - camera_vecs[0].x, camera_vecs[5].x - camera_vecs[1].x};
+    float[] toEdgeX = {Math.abs(camera_vecs[4].x - camera_vecs[0].x), camera_vecs[5].x - camera_vecs[1].x};
     float[] toEdgeY = {camera_vecs[4].y-camera_vecs[0].y, camera_vecs[6].y-camera_vecs[2].y};
     float percentage = camera_vecs[0].z/camera_vecs[4].z;
     float line = percentage * toEdgeX[0];
@@ -86,10 +82,10 @@ class Renderer{
     vecs[2] = new PVector(camera.rb.position.x+camera.rb.dimensions.x, camera.rb.position.y+camera.rb.dimensions.y, camera.rb.position.z);
     vecs[3] = new PVector(camera.rb.position.x, camera.rb.position.y+camera.rb.dimensions.y, camera.rb.position.z);
     
-    vecs[4] = new PVector(camera.rb.position.x, camera.rb.position.y, camera.rb.position.z+RenderDistance);
-    vecs[5] = new PVector(camera.rb.position.x+camera.rb.dimensions.x, camera.rb.position.y, camera.rb.position.z+RenderDistance);
-    vecs[6] = new PVector(camera.rb.position.x+camera.rb.dimensions.x, camera.rb.position.y+camera.rb.dimensions.y, camera.rb.position.z+RenderDistance);
-    vecs[7] = new PVector(camera.rb.position.x, camera.rb.position.y+camera.rb.dimensions.y, camera.rb.position.z+RenderDistance);
+    vecs[4] = new PVector(camera.rb.position.x-RenderDistance, camera.rb.position.y, camera.rb.position.z+RenderDistance);
+    vecs[5] = new PVector(camera.rb.position.x+RenderDistance, camera.rb.position.y, camera.rb.position.z+RenderDistance);
+    vecs[6] = new PVector(camera.rb.position.x+RenderDistance, camera.rb.position.y+camera.rb.dimensions.y, camera.rb.position.z+RenderDistance);
+    vecs[7] = new PVector(camera.rb.position.x-RenderDistance, camera.rb.position.y+camera.rb.dimensions.y, camera.rb.position.z+RenderDistance);
     return vecs;
   }
   
