@@ -47,9 +47,9 @@ void setup(){
   vectors[23] = new PVector(1, 2, 1.5);
   
   
-  scene0.put("Enemy", new Object(null, false, true, new PVector(), new PVector(20, 20, 20), new PVector(70f, 0f, 10f), new PVector(0, 0), 5, 1, vectors));
-  scene0.put("Player", new Object("./Images/fiend.png", false, true, new PVector(), new PVector(20, 20, 20), new PVector(60f, 50f, 10f), new PVector(0, 0), 5, 1, null));
-  scene0.put("Pirate", new Object(null, true, false, new PVector(), new PVector(990, 100, 30), new PVector(20f, 700f, 10f), new PVector(0, 0), 5, 1, vectors));
+  scene0.put("Enemy", new Object(null, false, true, new PVector(), new PVector(20, 20, 20), new PVector(70f, 0f, 10f), new PVector(0, 0), 5, .8, vectors));
+  scene0.put("Player", new Object("./Images/fiend.png", false, true, new PVector(), new PVector(20, 20, 20), new PVector(60f, 50f, 10f), new PVector(0, 0), 5, .8, null));
+  scene0.put("Pirate", new Object(null, true, false, new PVector(), new PVector(990, 100, 30), new PVector(20f, 700f, 10f), new PVector(0, 0), 5, .8, vectors));
 
   scene1.put("Player", new Object("./Images/fiend.png", false, true, new PVector(), new PVector(20, 20, 20), new PVector(60f, 50f, 10f), new PVector(0, 0), 5, 1, null));
 
