@@ -17,9 +17,11 @@ void setup(){
   size(1200, 700);
   background(255);
   
-  scene1.put("Enemy", new Object("", false, true , true, new PVector(0, 0, 0), new PVector(200, 200, 200), new PVector(width/2, 200f, 50f), new PVector(0, 0), 5, 0.8));
+  scene1.put("Enemy", new Object("", false, false , true, new PVector(0, 0, 0), new PVector(200, 200, 200), new PVector(width/2, 200f, 50f), new PVector(0, 0), 5, 0.8));
   
-  scene1.put("Player", new Object("./Images/fiend.png", true, true, true, new PVector(0, 0, 0), new PVector(200, 200, 10), new PVector(width/2, 200f, 1f), new PVector(0, 0), 5, 0.8));
+  scene1.put("Player", new Object("./Images/fiend.png", true, false, true, new PVector(0, 0, 0), new PVector(200, 200, 10), new PVector(width/2, 200f, 1f), new PVector(0, 0), 5, 0.8));
+  scene1.put("Enemy2", new Object("", false, true , true, new PVector(0, 0, 0), new PVector(200, 200, 200), new PVector(width/2, 200f, 1000f), new PVector(0, 0), 5, 0.8));
+  scene1.put("Floor", new Object("", false, true , true, new PVector(0, 0, 0), new PVector(width, 200, width), new PVector(0, height-10, 0), new PVector(0, 0), 5, 0.8));
   
   scene0.put("Enemy", new Object("", false, false, true, new PVector(), new PVector(20, 20, 20), new PVector(70f, 0f, 10f), new PVector(0, 0), 5, .8));
   scene0.put("Player", new Object("./Images/fiend.png", false, false, false, new PVector(), new PVector(20, 20, 20), new PVector(60f, 50f, 10f), new PVector(0, 0), 5, .8));
@@ -43,16 +45,33 @@ void setup(){
   }
 
 void keyPressed(){
+  Object player = objects.get("Player");
   Scene s = sm.switchSceneWithKey(key);
   if(s != null){
     objects = s.objects;
   }
+
   
   if(sm.loadedScene == 0 && key == 'q'){
     objects.put(String.valueOf(random(0, 10000)), new Object("", false, false, true, new PVector(), new PVector(20, 20, 20), new PVector(mouseX, mouseY, 10), new PVector(0, 0), 5, .8));
   }
   if(sm.loadedScene == 0 && key == 'w'){
     objects.put(String.valueOf(random(0, 10000)), new Object("", false, false, false, new PVector(), new PVector(20, 20, 20), new PVector(mouseX, mouseY, 10f), new PVector(0, 0), 5, .8));
+  }
+  if(sm.loadedScene == 1){
+  if(key == 'w'){
+    player.rb.position.z -= 10;
+  }
+  else if(key == 's'){
+    player.rb.position.z += 10;
+  }
+  else if(key == 'a'){
+    player.rb.position.x -= 10;
+  }
+  else if(key == 'd'){
+    player.rb.position.x += 10;
+
+  }
   }
 }
 
@@ -62,8 +81,15 @@ void draw(){
   noFill();
   objects = pe.SimulatePhysics(objects);
 
-  if(sm.loadedScene == 1)
+  if(sm.loadedScene == 1){
+    Object player = objects.get("Player");
+    if(player != null){
+      player.rotation = new PVector(map(mouseX, 0, width, 0, 180), map(mouseY, 0, height, 0, 180));
+    }
     renderer.render(objects);
+  }
+  
+
   
   if(sm.loadedScene == 0){
     RigidBody playerRB = objects.get("Player").rb;
