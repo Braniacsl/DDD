@@ -4,10 +4,7 @@ class SceneManager {
   SceneManager(Scene[] scenes){
     this.scenes = scenes;
   }
-  HashMap<String, Object> LoadScene(int index){
-    return scenes[index].objects;
-    if(prevIndex != -1){
-      scenes[index].objects = scenes[index].
-    }
+  Scene LoadScene(int index){
+    return scenes[index].DeepCopy();
   }
 }

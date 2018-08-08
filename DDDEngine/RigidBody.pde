@@ -30,4 +30,8 @@ class RigidBody {
     PVector dims = dimensions;
     rect(colliderA.x + position.x - dims.x, colliderA.y + position.y - dims.y, dims.x, dims.y);
   }
+  
+  RigidBody DeepCopy(){
+    return new RigidBody(isKinematic, useGravity, colliderA.copy(), colliderB.copy(), position.copy(), velocity.copy(), mass, bounciness);
+  }
 }

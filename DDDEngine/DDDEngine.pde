@@ -63,9 +63,9 @@ void setup(){
 
 void keyPressed(){
   if(key == '0'){
-    objects = sm.LoadScene(0);
+    objects = sm.LoadScene(0).objects;
   }else if(key == '1'){
-    objects = sm.LoadScene(1);
+    objects = sm.LoadScene(1).objects;
   }
 }
 
