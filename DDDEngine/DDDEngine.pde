@@ -16,10 +16,11 @@ void setup(){
   //size(1000, 1000);
   background(255);
   
-  scene1.put("Enemy", new Object("", false, true , true, new PVector(0, 0, 0), new PVector(200, 200, 200), new PVector(width/2, 200f, 50f), new PVector(0, 0), 5, 0.8));
+  scene1.put("Enemy", new Object("", false, false , true, new PVector(0, 0, 0), new PVector(200, 200, 200), new PVector(width/2, 200f, 50f), new PVector(0, 0), 5, 0.8));
   
-  scene1.put("Player", new Object("./Images/fiend.png", true, true, true, new PVector(0, 0, 0), new PVector(200, 200, 10), new PVector(width/2, 200f, 1f), new PVector(0, 0), 5, 0.8));
+  scene1.put("Player", new Object("./Images/fiend.png", true, false, true, new PVector(0, 0, 0), new PVector(200, 200, 10), new PVector(width/2, 200f, 1f), new PVector(0, 0), 5, 0.8));
   scene1.put("Enemy2", new Object("", false, true , true, new PVector(0, 0, 0), new PVector(200, 200, 200), new PVector(width/2, 200f, 1000f), new PVector(0, 0), 5, 0.8));
+  scene1.put("Floor", new Object("", false, true , true, new PVector(0, 0, 0), new PVector(width, 200, width), new PVector(0, height-10, 0), new PVector(0, 0), 5, 0.8));
   
   scene0.put("Enemy", new Object("", false, true, true, new PVector(), new PVector(20, 20, 20), new PVector(70f, 0f, 10f), new PVector(0, 0), 5, .8));
   scene0.put("Player", new Object("./Images/fiend.png", false, true, true, new PVector(), new PVector(20, 20, 20), new PVector(60f, 50f, 10f), new PVector(0, 0), 5, .8));
