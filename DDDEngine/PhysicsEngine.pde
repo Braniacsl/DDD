@@ -47,6 +47,7 @@ class PhysicsEngine {
           final float y = aMax.y - bMin.y;
           final float z = aMax.z - bMin.z;
           boolean isZ = false;
+          if(other.rb.isKinematic) println(x, y, z);
           if (x < y) {
             if (x < z) {
               // x
@@ -54,8 +55,10 @@ class PhysicsEngine {
               float objVel = (obj.rb.velocity.x) * ((obj.rb.bounciness + other.rb.bounciness) / 2);
               if(other.rb.isKinematic){
                 if (obj.rb.position.x < other.rb.position.x) {
+                  print("Hi", objVel);                                                       
                   obj.rb.velocity.x = -abs(objVel);
                 } else {
+                  println("Bye", objVel);
                   obj.rb.velocity.x = abs(objVel);
                 }
               }else{
