@@ -147,7 +147,7 @@ void draw(){
   final String[] gameInstructions = {
     "Press Q for a new gravity ball, W for an antigravity ball",
     "Use WASD to move camera",
-    "Use WASD to move",
+    "Use WASD to move. Use Q and E to change Z axis position (forward and backward)",
     "Click to shoot balls. Use mouse position to aim!",
     "Control the rocket with WASD."
   };
