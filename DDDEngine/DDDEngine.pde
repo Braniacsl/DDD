@@ -3,7 +3,6 @@ HashMap<String, Object> objects = new HashMap<String, Object>();
 HashMap<String, Object> scene0 = new HashMap<String, Object>();
 
 HashMap<String, Object> scene1 = new HashMap<String, Object>();
-HashMap<String, Object> scene3;
 
 
 Scene[] scenes;
@@ -31,11 +30,13 @@ void setup(){
   
   
   plat = new Platformer();
-  scene3 = plat.scene3;
+  plat.start();
+  HashMap<String, Object> scene2 = plat.scene3;
   
   scenes = new Scene[]{
     new Scene(scene0),
-    new Scene(scene1)
+    new Scene(scene1),
+    new Scene(scene2)
   };
   sm = new SceneManager(scenes);
   }
@@ -46,23 +47,23 @@ void keyPressed(){
   if(s != null){
     objects = s.objects;
   }
-  if(sm.loadedScene == 3){
+  if(sm.loadedScene == 2){
     float x = 0;
     float y = 0;
     float z = 0;
-    if(key == RIGHT){
+    if(key == 'd'){
       x = 1.0;
     }
-    else if(key == LEFT){
+    else if(key == 'a'){
       x = -1.0;
     }
-    else if(key == UP){
+    else if(key == 'w'){
       y = 1.0;
     }
     else if(key == 'q'){
       z = -1.0;
     }
-    else if(key == 'w'){
+    else if(key == 'e'){
       z = 1.0;
     }
     plat.input(x, y, z);
@@ -87,9 +88,19 @@ void draw(){
   clear();
   background(200);  
   noFill();
+  if(sm.loadedScene == -1)
+    objects = new HashMap<String, Object>();;
+  if(sm.loadedScene == 2){
+    objects = plat.scene3;
+    if(plat.player.rb.position.y > height){
+      sm.loadedScene = -1;
+      plat = new Platformer();
+      plat.start();
+    }
+  }
   objects = pe.SimulatePhysics(objects);
   Object player = objects.get("Player");
-  if(sm.loadedScene == 3){
+  if(sm.loadedScene == 2){
     plat.update();
   }
   if(player != null){

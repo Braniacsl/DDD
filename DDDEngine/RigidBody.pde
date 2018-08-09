@@ -22,7 +22,6 @@ class RigidBody {
   
   void RenderHitbox(color c){
     fill(c);
-    println(position.z);
     
     //Use the line below for Z-axis visualization
     //PVector dims = new PVector(dimensions.x / constrain(position.z / 30f, 1f/30f, 30f), dimensions.y / constrain(position.z / 30f, 1f/30f, 30f));

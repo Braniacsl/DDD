@@ -14,7 +14,7 @@ class Renderer{
      String ky = entry.getKey();
      Object object =  entry.getValue();
      if(object.sp != null && ky != "Player"){
-       object.rb.dimensions = this.calcDimensions(object.rb.position);
+       //object.rb.dimensions = this.calcDimensions(object.rb.position);
        object.sp.render(object.rb.position.x, object.rb.position.y, object.rb.dimensions.x, object.rb.dimensions.y);
      }
      else if(ky != "Player"){
@@ -185,7 +185,6 @@ class Renderer{
     PVector[] result = new PVector[vectors.length];
     for(int i = 0; i < vectors.length; i++){
       float f = vectors[i].z - this.camera.rb.position.z;
-      println(rotationVector.x);
       float new_x = ((vectors[i].x-this.camera.rb.position.x) * (f/vectors[i].z)) + rotationVector.x;
       float new_y = ((vectors[i].y-this.camera.rb.position.y) * (f/vectors[i].z)) + rotationVector.y;
       result[i] = new PVector(new_x, new_y);
