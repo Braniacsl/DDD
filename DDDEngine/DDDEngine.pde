@@ -32,7 +32,7 @@ void setup(){
   scene2.put("wall", new Object("", true, true, false, new PVector(), new PVector(20, 100, 20), new PVector(700, 300, 10), new PVector(0, 0), 5, 1));
   scene2.put("ball", new Object("", true, false, true, new PVector(), new PVector(20, 20, 20), new PVector(mouseX, mouseY, 10), new PVector(random(5, 20), 0), 5, 1));
   scene2.put("Pirate", new Object("", true, true, false, new PVector(), new PVector(990, 100, 30), new PVector(20f, 600f, 10f), new PVector(0, 0), 5, 1));
-  scene2.put("target", new Object("", true, true, false, new PVector(), new PVector(20, 20, 20), new PVector(800, 350, 10), new PVector(0, 0), 5, 1));
+  scene2.put("target", new Object("", true, false, false, new PVector(), new PVector(20, 20, 20), new PVector(800, 350, 10), new PVector(0, 0), 5, 1));
   
   for(int i = 0; i < 20; i++){
     scene4.put("Enemy" + String.valueOf(i), new Object("", false, false, false, new PVector(), new PVector(20, 20, 20), new PVector(random(0, 1200), random(0, 700), 10f), new PVector(0, 0), 5, .8));
@@ -129,7 +129,6 @@ void draw(){
   
   if(keyPressed && sm.loadedScene == 4){
     RigidBody playerRB = objects.get("Player").rb;
-    
     if(key == 'w')
           playerRB.velocity.y -= .08;
     if(key == 's')
