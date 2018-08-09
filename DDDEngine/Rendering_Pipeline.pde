@@ -7,13 +7,14 @@ float RenderDistance = width*2;
 
 class Renderer{
   Object camera;
+  PVector rotationVector = new PVector();
   public void render(HashMap<String, Object> objects){
     camera = objects.get("Player");
     for(HashMap.Entry<String, Object> entry : objects.entrySet()){
      String ky = entry.getKey();
      Object object =  entry.getValue();
      if(object.sp != null && ky != "Player"){
-       //object.rb.dimensions = this.calcDimensions(object.rb.position);
+       object.rb.dimensions = this.calcDimensions(object.rb.position);
        object.sp.render(object.rb.position.x, object.rb.position.y, object.rb.dimensions.x, object.rb.dimensions.y);
      }
      else if(ky != "Player"){
@@ -35,6 +36,8 @@ class Renderer{
       for(int j = 0; j < camera_vecs.length; j++){
         camera_vecs[j] = RotationMatrixY(camera_vecs[j], rotationX);
         camera_vecs[j].dot(RotationMatrixX(camera_vecs[j], rotationY));
+        rotationVector.x = camera_vecs[j].x;
+        rotationVector.y = camera_vecs[j].y;
       }
       
       float z = vector.z;
@@ -43,7 +46,7 @@ class Renderer{
         result = true;
       }
     }
-    return result;
+    return true;
   }
   
   public PVector[] trig_calc(float z, PVector[] camera_vecs){
@@ -61,17 +64,47 @@ class Renderer{
   
   public PVector RotationMatrixY(PVector point, float rotation){
     PVector result = new PVector();
-    result.x = (float) Math.cos(rotation) * point.x + 0 * point.y + (float) Math.sin(rotation) * point.z;
-    result.y = point.y;
-    result.z = (float) -Math.sin(rotation) * point.x + 0 * point.y + (float) Math.cos(rotation) * point.z;
+    float[][] temp = new float[1][3];
+    temp[0][0] = point.x - camera.rb.position.x;
+    temp[0][1] = point.y - camera.rb.position.y;
+    temp[0][2] = point.z - camera.rb.position.z;
+    float[][] rotationMatrixY = new float[][]{
+                                              {(float) Math.cos(rotation), 0, (float) Math.sin(rotation)},
+                                              {0, 1, 0},
+                                              {(float) -Math.sin(rotation), 0, (float) Math.cos(rotation)}
+                                              };
+    float[][] medfloat = GenericFunctions.multiplyMatrices(temp, rotationMatrixY, 1, 3, 3);
+    for(int i = 0; i < medfloat.length; i++){
+      medfloat[i][0] += camera.rb.position.x;
+      medfloat[i][1] += camera.rb.position.y;
+      medfloat[i][2] += camera.rb.position.z;
+    }
+    result.x = medfloat[0][0];
+    result.y = medfloat[0][1];
+    result.z = medfloat[0][2];
     return result;
   }
   
    public PVector RotationMatrixX(PVector point, float rotation) {
     PVector result = new PVector();
-    result.x = point.x;
-    result.y = (float) Math.cos(rotation) * point.y + (float) -Math.sin(rotation) * point.z;
-    result.z = (float) Math.sin(rotation) * point.y + (float) Math.cos(rotation) * point.z;
+    float[][] temp = new float[1][3];
+    temp[0][0] = point.x - camera.rb.position.x;
+    temp[0][1] = point.y - camera.rb.position.y;
+    temp[0][2] = point.z - camera.rb.position.z;
+    float[][] rotationMatrixY = new float[][]{
+                                              {1, 0, 0},
+                                              {0, (float) Math.cos(rotation), (float) -Math.sin(rotation)},
+                                              {0, (float) Math.sin(rotation), (float) Math.cos(rotation)}
+                                              };
+    float[][] medfloat = GenericFunctions.multiplyMatrices(temp, rotationMatrixY, 1, 3, 3);
+    for(int i = 0; i < medfloat.length; i++){
+      medfloat[i][0] += camera.rb.position.x;
+      medfloat[i][1] += camera.rb.position.y;
+      medfloat[i][2] += camera.rb.position.z;
+    }
+    result.x = medfloat[0][0];
+    result.y = medfloat[0][1];
+    result.z = medfloat[0][2];
     return result;
   }
   
@@ -152,8 +185,9 @@ class Renderer{
     PVector[] result = new PVector[vectors.length];
     for(int i = 0; i < vectors.length; i++){
       float f = vectors[i].z - this.camera.rb.position.z;
-      float new_x = ((vectors[i].x-this.camera.rb.position.x) * (f/vectors[i].z)) + this.camera.rb.position.x;
-      float new_y = ((vectors[i].y-this.camera.rb.position.y) * (f/vectors[i].z)) + this.camera.rb.position.y;
+      println(rotationVector.x);
+      float new_x = ((vectors[i].x-this.camera.rb.position.x) * (f/vectors[i].z)) + rotationVector.x;
+      float new_y = ((vectors[i].y-this.camera.rb.position.y) * (f/vectors[i].z)) + rotationVector.y;
       result[i] = new PVector(new_x, new_y);
     }
     return result;

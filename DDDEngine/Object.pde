@@ -11,6 +11,7 @@ class Object{
   boolean takesRotation;
   PVector rotation;
   String ogLocation;
+  String location;
   public Object(String location, boolean takesRotation, boolean isKinematic, boolean useGravity, PVector colliderA, PVector colliderB, PVector position, PVector velocity, float mass, float bounce){
     this.rb = new RigidBody(isKinematic, useGravity, colliderA, colliderB, position, velocity, mass, bounce);
     ogLocation = location;
