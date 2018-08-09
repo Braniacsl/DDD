@@ -143,11 +143,11 @@ void draw(){
     renderer.render(objects);
   }
   
-  final String instructions = "Press keys 0 - 4 to select game\n0: Trampoline\n1: 3D Demonstration\n2: Ball Cannon\n3: 3D Platformer\n4: Space Rocket";
+  final String instructions = "Press keys 0 - 4 to select game\n0: Trampoline\n1: 3D Demonstration\n2: Platformer\n3: Ball Cannon\n4: Space Rocket";
   final String[] gameInstructions = {
     "Press Q for a new gravity ball, W for an antigravity ball",
     "Use WASD to move camera",
-    "3D Platformer",
+    "Use WASD to move",
     "Click to shoot balls. Use mouse position to aim!",
     "Control the rocket with WASD."
   };

@@ -56,5 +56,6 @@ class Platformer {
     this.player.rb.velocity.y -= y * 3;
     this.player.rb.dimensions.x += z * 3;
     this.player.rb.dimensions.y += z * 3;
+    this.player.rb.position.z += z * 3;
   }
 }
