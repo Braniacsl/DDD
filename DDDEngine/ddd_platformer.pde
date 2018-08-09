@@ -27,7 +27,6 @@ class Platformer {
   }
   
   void update(){
-    background(0);
     if(ticks > 30){
       if(player.rb.position.x != cur_x){
         if(player.ogLocation == "./Images/Player.png"){
@@ -53,9 +52,9 @@ class Platformer {
   }
   
   void input(float x, float y, float z){
-    println("in");
     this.player.rb.position.x += x * 3;
     this.player.rb.velocity.y -= y * 3;
-    this.player.rb.position.z += z * 3;
+    this.player.rb.dimensions.x += z * 3;
+    this.player.rb.dimensions.y += z * 3;
   }
 }

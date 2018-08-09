@@ -10,7 +10,7 @@ class SceneManager {
   }
   Scene switchSceneWithKey(char k) {
     int kNum = Character.getNumericValue(k);
-    if (kNum < 0 || kNum > 9 || kNum > scenes.length) return null;
+    if (kNum < 0 || kNum > 9 || kNum >= scenes.length) return null;
     return LoadScene(kNum);
   }
 }

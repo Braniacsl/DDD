@@ -27,7 +27,7 @@ class RigidBody {
     //PVector dims = new PVector(dimensions.x / constrain(position.z / 30f, 1f/30f, 30f), dimensions.y / constrain(position.z / 30f, 1f/30f, 30f));
     //Use the line below for no Z-azis visualization
     PVector dims = dimensions;
-    rect(colliderA.x + position.x - dims.x, colliderA.y + position.y - dims.y, dims.x, dims.y);
+    rect(colliderA.x + position.x, colliderA.y + position.y, dims.x, dims.y);
   }
   
   RigidBody DeepCopy(){

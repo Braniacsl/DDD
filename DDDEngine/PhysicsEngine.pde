@@ -53,7 +53,7 @@ class PhysicsEngine {
               
               float objVel = (obj.rb.velocity.x) * ((obj.rb.bounciness + other.rb.bounciness) / 2);
               if(other.rb.isKinematic){
-                if (obj.rb.position.x < other.rb.position.x) {
+                if (obj.rb.position.x < other.rb.position.x) {                                                    
                   obj.rb.velocity.x = -abs(objVel);
                 } else {
                   obj.rb.velocity.x = abs(objVel);
