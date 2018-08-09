@@ -65,7 +65,6 @@ class PhysicsEngine {
               }
             } else {
               // z
-              //println("Hit z in x < y");
               isZ = true;
             }
           } else {
