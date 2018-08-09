@@ -20,7 +20,7 @@ void setup(){
   //size(1200, 700);
   background(255);
 
-  scene1.put("Enemy", new Object("", false, true , true, new PVector(0, 0, 0), new PVector(200, 200, 200), new PVector(width/2, 200f, 50f), new PVector(0, 0), 5, 0.2));
+  scene1.put("Enemy", new Object("", false, true , true, new PVector(0, 0, 0), new PVector(200, 200, 200), new PVector(width/2, 200f, 50f), new PVector(0, 0), 5, 1));
   scene1.put("Enemy3", new Object("", false, false , true, new PVector(0, 0, 0), new PVector(200, 200, 200), new PVector(width/2, -100f, 50f), new PVector(0, 0), 5, 1));
   scene1.put("Player", new Object("./Images/fiend.png", true, true, true, new PVector(0, 0, 0), new PVector(200, 200, 10), new PVector(width/2, 200f, 1f), new PVector(0, 0), 5, 0.2));
 
