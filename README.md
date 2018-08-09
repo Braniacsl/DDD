@@ -23,7 +23,50 @@ mass | float | The mass of the object. The greater the mass, the less the forces
 bounce | float | The amount of energy that goes back into an object on collision. For example, a bounce of 1 will have an object bounce back with the same force, a bounce of 0 would have the object not bounce back, and a bounce of 2 would violate the conservation of energy. When two objects collide, the bounce is **averaged**.
 
 ### The Objects HashMap
-
+Every DDDEngine class takes a `HashMap<String, Object>`. You should create a global Object HashMap.
 
 ## Scene Manager
 The scene manager helps to... manage scenes.
+
+### The Scene Class
+A `Scene` is basically a wrapper class. All you ever should need to access is the `objects` of a scene.
+
+Initializer:
+```
+Scene(HashMap<String, Object> objects)
+```
+
+### Initializing the SceneManager
+The SceneManager takes an array of Scenes.
+```
+SceneManager(Scene[] scenes)
+```
+
+### Loading a scene
+To load a scene, call:
+```
+LoadScene(int index)
+```
+where index is the index of the scene you want to load, specified in the array passed in the initializer.
+
+This method returns a Scene object. In most cases, you would want to do:
+```
+//To load a scene
+HashMap<String, Object> objects = new HashMap<String, Object>();
+
+SceneManager sm = new SceneManager(new Scene[]{ /* ... */ });
+sm.LoadScene(1);
+```
+
+### switchSceneWithKey
+the `switchSceneWithKey` method is used to easily switch scenes when the key corresponding to the scene index is pressed.
+Example:
+```
+HashMap<String, Object> objects = new HashMap<String, Object>();
+
+SceneManager sm = new SceneManager(new Scene[]{ /* ... */ });
+void keyPressed(){
+  objects = sm.switchSceneWithkey(key).objects;
+}
+```
+
